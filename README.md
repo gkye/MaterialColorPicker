@@ -22,7 +22,7 @@ pod "MaterialColorPicker"
 
 ## Author
 
-=, qwstnz@gmail.com
+George Kye
 
 ## License
 
