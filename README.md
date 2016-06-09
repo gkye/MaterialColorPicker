@@ -23,6 +23,7 @@ Returns the index and color of the selected item.
 func colors()->[UIColor]
 ```
 Set colors for MaterialColorPicker (Default colors will be used if no `dataSource` set)
+<a href="https://github.com/katopz/google-material-color-swift"> google-material-color-swift by katopz included in project </a>
 
 #### Properties
 ```swift
