@@ -1,6 +1,5 @@
 # MaterialColorPicker
 
-[![CI Status](http://img.shields.io/travis/=/MaterialColorPicker.svg?style=flat)](https://travis-ci.org/=/MaterialColorPicker)
 [![Version](https://img.shields.io/cocoapods/v/MaterialColorPicker.svg?style=flat)](http://cocoapods.org/pods/MaterialColorPicker)
 [![License](https://img.shields.io/cocoapods/l/MaterialColorPicker.svg?style=flat)](http://cocoapods.org/pods/MaterialColorPicker)
 [![Platform](https://img.shields.io/cocoapods/p/MaterialColorPicker.svg?style=flat)](http://cocoapods.org/pods/MaterialColorPicker)
