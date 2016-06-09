@@ -9,7 +9,25 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
+# Usage
+
+#### Delegate
+```swift
+func didSelectColorAtIndex(view: UIView, index: Int, color: UIColor)
+```
+Returns the index and color of the selected item.
+
+#### DataSource
+
+```swift
+func colors()->[UIColor]
+```
+Set colors for MaterialColorPicker (Default colors will be used if no `dataSource` set)
+
+#### Properties
+```swift
+public var shuffleColors: Bool = false //Shuffles colors within ColorPicker
+```
 
 ## Installation
 
