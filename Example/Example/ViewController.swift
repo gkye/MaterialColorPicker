@@ -22,8 +22,8 @@ class ViewController: UIViewController, MaterialColorPickerDelegate {
     //    pickerView.dataSource = self
     
   }
-  
-  func didSelectColorAtIndex(index: Int, color: UIColor) {
+
+  func didSelectColorAtIndex(view: UIView, index: Int, color: UIColor) {
     print("Index is ", index)
     self.view.backgroundColor = color
   }

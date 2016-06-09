@@ -46,7 +46,7 @@ class MaterialColorPickerCell: UICollectionViewCell{
    - parameter index: index of selected item
    - parameter color: background color of selected item
    */
-  optional func didSelectColorAtIndex(index: Int, color: UIColor)
+  optional func didSelectColorAtIndex(view: UIView, index: Int, color: UIColor)
 }
 
 public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollectionViewDelegate{
@@ -159,7 +159,7 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
             }, completion: {(finished: Bool) -> Void in
               UIView.animateWithDuration(0.3 / 2, animations: {() -> Void in
                 cell.transform = CGAffineTransformIdentity
-                self.delegate?.didSelectColorAtIndex?(self.selectedIndex!.item, color: cell.backgroundColor!)
+                self.delegate?.didSelectColorAtIndex?(self, index: self.selectedIndex!.item, color: cell.backgroundColor!)
                 self.collectionView.reloadData()
               })
           })

@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.summary          = 'Drop in customizable color picker with material color support.'
 
 
-  s.description      = 'Drop in customizable color picker with material color support.'
+  s.description      = 'Customizable color picker with material color support.'
 
   s.homepage         = 'https://github.com/gkye/MaterialColorPicker.git'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
