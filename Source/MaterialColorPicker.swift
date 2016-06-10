@@ -57,7 +57,7 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
     return colors
   }()
   
-  var dataSource: MaterialColorPickerDataSource?{
+  public var dataSource: MaterialColorPickerDataSource?{
     didSet{
       if let dsColors = dataSource?.colors(){
         self.colors = dsColors
@@ -65,7 +65,7 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
     }
   }
   
-  var delegate: MaterialColorPickerDelegate?
+  public var delegate: MaterialColorPickerDelegate?
   
   public var shuffleColors: Bool = false{
     didSet{
