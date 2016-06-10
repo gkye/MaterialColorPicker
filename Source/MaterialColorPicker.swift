@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MaterialColorPickerCell: UICollectionViewCell{
+private class MaterialColorPickerCell: UICollectionViewCell{
   
   func setup(){
     self.layer.cornerRadius = self.bounds.width / 2
@@ -31,7 +31,7 @@ class MaterialColorPickerCell: UICollectionViewCell{
 }
 
 
-@objc protocol MaterialColorPickerDataSource {
+@objc public protocol MaterialColorPickerDataSource {
   /**
    Set colors for MaterialColorPicker (optional. Default colors will be used if nil)
    - returns: should return an array of `UIColor`
@@ -40,13 +40,13 @@ class MaterialColorPickerCell: UICollectionViewCell{
 }
 
 
-@objc protocol MaterialColorPickerDelegate{
+@objc public protocol MaterialColorPickerDelegate{
   /**
    Return selected index and color for index
    - parameter index: index of selected item
    - parameter color: background color of selected item
    */
-  optional func didSelectColorAtIndex(view: UIView, index: Int, color: UIColor)
+  optional func didSelectColorAtIndex(index: Int, color: UIColor)
 }
 
 public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollectionViewDelegate{
@@ -150,7 +150,6 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
   
   private func animateCell(){
     if let cell = collectionView.cellForItemAtIndexPath(selectedIndex!){
-      print("animated cell")
       UIView.animateWithDuration(0.3 / 1.5, animations: {() -> Void in
         cell.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3)
         }, completion: {(finished: Bool) -> Void in
@@ -159,7 +158,7 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
             }, completion: {(finished: Bool) -> Void in
               UIView.animateWithDuration(0.3 / 2, animations: {() -> Void in
                 cell.transform = CGAffineTransformIdentity
-                self.delegate?.didSelectColorAtIndex?(self, index: self.selectedIndex!.item, color: cell.backgroundColor!)
+                self.delegate?.didSelectColorAtIndex?(self.selectedIndex!.item, color: cell.backgroundColor!)
                 self.collectionView.reloadData()
               })
           })

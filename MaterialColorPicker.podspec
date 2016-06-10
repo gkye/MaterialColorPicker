@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MaterialColorPicker'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'Drop in customizable color picker with material color support.'
 
 
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { '=' => 'qwstnz@gmail.com' }
   s.source           = { :git => 'https://github.com/gkye/MaterialColorPicker.git', :tag => s.version.to_s }
-  s.social_media_url = 'https://twitter.com/gkye'
+  s.social_media_url = 'https://twitter.com/kyegeorge'
 
   s.ios.deployment_target = '8.0'
 
