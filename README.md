@@ -1,9 +1,10 @@
 # MaterialColorPicker
 
-[![CI Status](http://img.shields.io/travis/=/MaterialColorPicker.svg?style=flat)](https://travis-ci.org/=/MaterialColorPicker)
 [![Version](https://img.shields.io/cocoapods/v/MaterialColorPicker.svg?style=flat)](http://cocoapods.org/pods/MaterialColorPicker)
 [![License](https://img.shields.io/cocoapods/l/MaterialColorPicker.svg?style=flat)](http://cocoapods.org/pods/MaterialColorPicker)
 [![Platform](https://img.shields.io/cocoapods/p/MaterialColorPicker.svg?style=flat)](http://cocoapods.org/pods/MaterialColorPicker)
+
+![Demo Gif](https://rawgit.com/gkye/MaterialColorPicker/master/demo.gif)
 
 ## Example
 
@@ -46,3 +47,7 @@ George Kye
 ## License
 
 MaterialColorPicker is available under the MIT license. See the LICENSE file for more info.
+
+TODO
+
+- [ ] Add manual selection
