@@ -47,3 +47,7 @@ George Kye
 ## License
 
 MaterialColorPicker is available under the MIT license. See the LICENSE file for more info.
+
+TODO
+
+- [ ] Add manual selection
