@@ -1,5 +1,6 @@
 # MaterialColorPicker
 
+[![codebeat badge](https://codebeat.co/badges/2ca55682-c811-43ce-8142-f90d4cf29375)](https://codebeat.co/projects/github-com-gkye-materialcolorpicker)
 [![Version](https://img.shields.io/cocoapods/v/MaterialColorPicker.svg?style=flat)](http://cocoapods.org/pods/MaterialColorPicker)
 [![License](https://img.shields.io/cocoapods/l/MaterialColorPicker.svg?style=flat)](http://cocoapods.org/pods/MaterialColorPicker)
 [![Platform](https://img.shields.io/cocoapods/p/MaterialColorPicker.svg?style=flat)](http://cocoapods.org/pods/MaterialColorPicker)
