@@ -20,13 +20,12 @@ class ViewController: UIViewController, MaterialColorPickerDelegate {
     pickerView.delegate = self
     pickerView.shuffleColors = true
     //    pickerView.dataSource = self
-    
   }
-
-  func didSelectColorAtIndex(view: UIView, index: Int, color: UIColor) {
+  
+  func didSelectColorAtIndex(MaterialColorPickerView: MaterialColorPicker, index: Int, color: UIColor) {
     print("Index is ", index)
     self.view.backgroundColor = color
   }
-  
+
   
 }
