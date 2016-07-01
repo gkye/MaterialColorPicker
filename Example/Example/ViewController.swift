@@ -20,12 +20,14 @@ class ViewController: UIViewController, MaterialColorPickerDelegate {
     pickerView.delegate = self
     pickerView.shuffleColors = true
     //    pickerView.dataSource = self
+    //    pickerView.itemSize = CGSize(width: 25, height: 25)
+    
   }
   
   func didSelectColorAtIndex(MaterialColorPickerView: MaterialColorPicker, index: Int, color: UIColor) {
     print("Index is ", index)
     self.view.backgroundColor = color
   }
-
+  
   
 }

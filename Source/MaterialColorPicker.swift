@@ -49,7 +49,7 @@ public protocol MaterialColorPickerDelegate{
   func didSelectColorAtIndex(MaterialColorPickerView: MaterialColorPicker, index: Int, color: UIColor)
 }
 
-public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollectionViewDelegate{
+public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
   
   private var selectedIndex: NSIndexPath?
   lazy var colors: [UIColor] = {
@@ -73,6 +73,12 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
     }
   }
   
+  public var itemSize: CGSize!{
+    didSet{
+      collectionView.reloadData()
+      collectionView.layoutIfNeeded()
+    }
+  }
   
   
   //Setup collectionview and flow layout
@@ -94,13 +100,19 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
     return collectionView
   }()
   
-  public override init(frame: CGRect) {
-    super.init(frame: frame)
-    self.initialize()
-  }
+  //  public override init(frame: CGRect) {
+  //    super.init(frame: frame)
+  //    self.initialize()
+  //  }
+  //
+  //  required public init?(coder aDecoder: NSCoder) {
+  //    fatalError("init(coder:) has not been implemented")
+  //  }
   
-  required public init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+  public override func layoutSubviews() {
+    super.layoutSubviews()
+    initialize()
+    addContrains(self, subView: collectionView)
   }
   
   private func initialize() {
@@ -118,6 +130,8 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
   //    animateCell()
   //  }
   //
+  
+  
   //MARK: CollectionView DataSouce
   public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return colors.count
@@ -125,8 +139,10 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
   
   public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! MaterialColorPickerCell
-    cell.backgroundColor = colors[indexPath.item]
+    cell.layer.masksToBounds = true
+    cell.clipsToBounds = true
     
+    cell.backgroundColor = colors[indexPath.item]
     if indexPath == selectedIndex {
       cell.layer.borderWidth = 3
       cell.layer.borderColor = UIColor.blackColor().CGColor
@@ -144,10 +160,18 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
     animateCell()
   }
   
+  public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    if itemSize != nil{
+      return itemSize
+    }
+    return CGSize(width: self.bounds.height, height: self.bounds.height - 1)
+  }
+  
+  
+  
   /**
    Animate cell on selection
    */
-  
   private func animateCell(){
     if let cell = collectionView.cellForItemAtIndexPath(selectedIndex!){
       UIView.animateWithDuration(0.3 / 1.5, animations: {() -> Void in
@@ -166,7 +190,12 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
     }
   }
   
-  
+  private func addContrains(superView: UIView, subView: UIView){
+    subView.translatesAutoresizingMaskIntoConstraints = false
+    let views = ["myView" : subView]
+    superView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[myView]|", options:[] , metrics: nil, views: views))
+    superView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[myView]|", options:[] , metrics: nil, views: views))
+  }
 }
 
 
