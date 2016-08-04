@@ -19,6 +19,10 @@ func didSelectColorAtIndex(view: UIView, index: Int, color: UIColor)
 ```
 Returns the index and color of the selected item.
 
+```swift
+ func sizeForCellAtIndex(MaterialColorPickerView: MaterialColorPicker, index: Int)->CGSize
+```
+Set size of cell at a spefic index
 #### DataSource
 
 ```swift
@@ -31,6 +35,10 @@ Set colors for MaterialColorPicker (Default colors will be used if no `dataSourc
 ```swift
 public var shuffleColors: Bool = false //Shuffles colors within ColorPicker
 ```
+```swift
+public func selectCellAtIndex(index: Int)
+```
+Programtically select a cell at an index
 
 ## Installation
 
