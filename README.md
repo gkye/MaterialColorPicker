@@ -64,5 +64,6 @@ TODO
 
 <a href="https://github.com/gkye/MaterialColorPicker/releases/tag/0.1.4"> 0.1.5 </a> 
 - Added `itemSize` public property to allow configuration of color picker cell.
-- <a href=""> </a> Added `selectCellAtIndex` function and `sizeForCellAtIndex` delegate
+<a href="https://github.com/gkye/MaterialColorPicker/releases/tag/0.1.6"> </a>
+-  Added `selectCellAtIndex` function and `sizeForCellAtIndex` delegate
 
