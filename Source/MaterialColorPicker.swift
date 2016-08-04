@@ -40,13 +40,21 @@ private class MaterialColorPickerCell: UICollectionViewCell{
 }
 
 
-public protocol MaterialColorPickerDelegate{
+@objc public protocol MaterialColorPickerDelegate{
   /**
    Return selected index and color for index
    - parameter index: index of selected item
    - parameter color: background color of selected item
    */
   func didSelectColorAtIndex(MaterialColorPickerView: MaterialColorPicker, index: Int, color: UIColor)
+  
+  /**
+   Return a size for the current cell (overrides default size)
+   - parameter MaterialColorPickerView: current MaterialColorPicker instantse
+   - parameter index:                   index of cell
+   - returns: CGSize
+   */
+  optional func sizeForCellAtIndex(MaterialColorPickerView: MaterialColorPicker, index: Int)->CGSize
 }
 
 public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
@@ -73,12 +81,6 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
     }
   }
   
-  public var itemSize: CGSize!{
-    didSet{
-      collectionView.reloadData()
-      collectionView.layoutIfNeeded()
-    }
-  }
   
   
   //Setup collectionview and flow layout
@@ -100,15 +102,6 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
     return collectionView
   }()
   
-  //  public override init(frame: CGRect) {
-  //    super.init(frame: frame)
-  //    self.initialize()
-  //  }
-  //
-  //  required public init?(coder aDecoder: NSCoder) {
-  //    fatalError("init(coder:) has not been implemented")
-  //  }
-  
   public override func layoutSubviews() {
     super.layoutSubviews()
     initialize()
@@ -121,16 +114,13 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
   }
   
   //Select index programtically
-  //FIXME: index not selected first time
-  
-  //  public func selectIndex(index: Int){
-  //    let indexPath = NSIndexPath(forRow: index, inSection: 0)
-  //    selectedIndex = indexPath
-  //    collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .CenteredHorizontally)
-  //    animateCell()
-  //  }
-  //
-  
+    public func selectCellAtIndex(index: Int){
+      let indexPath = NSIndexPath(forRow: index, inSection: 0)
+      selectedIndex = indexPath
+      collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .CenteredHorizontally)
+      self.delegate?.didSelectColorAtIndex(self, index: self.selectedIndex!.item, color: colors[index])
+      animateCell(manualSelection: true)
+    }
   
   //MARK: CollectionView DataSouce
   public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -144,7 +134,7 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
     
     cell.backgroundColor = colors[indexPath.item]
     if indexPath == selectedIndex {
-      cell.layer.borderWidth = 3
+      cell.layer.borderWidth = 2
       cell.layer.borderColor = UIColor.blackColor().CGColor
     }else{
       cell.layer.borderWidth = 0
@@ -161,9 +151,10 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
   }
   
   public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-    if itemSize != nil{
-      return itemSize
+    if let size = delegate?.sizeForCellAtIndex?(self, index: indexPath.row){
+      return size
     }
+    
     return CGSize(width: self.bounds.height, height: self.bounds.height - 1)
   }
   
@@ -172,7 +163,7 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
   /**
    Animate cell on selection
    */
-  private func animateCell(){
+  private func animateCell(manualSelection manualSelection: Bool = false){
     if let cell = collectionView.cellForItemAtIndexPath(selectedIndex!){
       UIView.animateWithDuration(0.3 / 1.5, animations: {() -> Void in
         cell.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3)
@@ -182,7 +173,9 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
             }, completion: {(finished: Bool) -> Void in
               UIView.animateWithDuration(0.3 / 2, animations: {() -> Void in
                 cell.transform = CGAffineTransformIdentity
-                self.delegate?.didSelectColorAtIndex(self, index: self.selectedIndex!.item, color: cell.backgroundColor!)
+                if !manualSelection{
+                  self.delegate?.didSelectColorAtIndex(self, index: self.selectedIndex!.item, color: cell.backgroundColor!)
+                }
                 self.collectionView.reloadData()
               })
           })

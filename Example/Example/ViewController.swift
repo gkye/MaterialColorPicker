@@ -19,8 +19,6 @@ class ViewController: UIViewController, MaterialColorPickerDelegate {
     self.view.addSubview(pickerView)
     pickerView.delegate = self
     pickerView.shuffleColors = true
-    //    pickerView.dataSource = self
-    //    pickerView.itemSize = CGSize(width: 25, height: 25)
     
   }
   
@@ -29,5 +27,17 @@ class ViewController: UIViewController, MaterialColorPickerDelegate {
     self.view.backgroundColor = color
   }
   
+  func sizeForCellAtIndex(MaterialColorPickerView: MaterialColorPicker, index: Int) -> CGSize {
+    if index == 3{
+      return CGSize(width: 50, height: 50)
+    }else{
+      return CGSize(width: 50, height: 50)
+    }
+  }
+  
+  
+  @IBAction func selectIndex(sender: UIButton){
+    pickerView.selectCellAtIndex(30)
+  }
   
 }
