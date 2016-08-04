@@ -58,11 +58,11 @@ George Kye
 MaterialColorPicker is available under the MIT license. See the LICENSE file for more info.
 
 TODO
-- [ ] Add manual selection
-- [ ] Fix `itemSize`. (Some cells not circular when size is not set within `viewDidLoad`)
+- [x] Add manual selection
 
 # Change Log
 
 <a href="https://github.com/gkye/MaterialColorPicker/releases/tag/0.1.4"> 0.1.5 </a> 
 - Added `itemSize` public property to allow configuration of color picker cell.
+- <a href=""> </a> Added `selectCellAtIndex` function and `sizeForCellAtIndex` delegate
 
