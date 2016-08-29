@@ -57,9 +57,6 @@ George Kye
 
 MaterialColorPicker is available under the MIT license. See the LICENSE file for more info.
 
-TODO
-- [x] Add manual selection
-
 # Change Log
 
 <a href="https://github.com/gkye/MaterialColorPicker/releases/tag/0.1.4"> 0.1.5 </a> 
