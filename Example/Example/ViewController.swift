@@ -19,6 +19,9 @@ class ViewController: UIViewController, MaterialColorPickerDelegate {
     self.view.addSubview(pickerView)
     pickerView.delegate = self
     pickerView.shuffleColors = true
+    pickerView.selectionColor = UIColor.cyanColor()
+    pickerView.selectedBorderWidth = 5
+    pickerView.cellSpacing = 10
     
   }
   

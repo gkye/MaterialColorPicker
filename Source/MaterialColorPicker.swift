@@ -75,16 +75,23 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
   
   public var delegate: MaterialColorPickerDelegate?
   
+    /// Shuffles colors within ColorPicker
   public var shuffleColors: Bool = false{
     didSet{
       if shuffleColors{ colors.shuffleInPlace() }
     }
   }
   
+    /// Color for border of selected cell
+  public var selectionColor: UIColor = UIColor.blackColor()
   
+    /// Border width for selected Cell
+  public var selectedBorderWidth: CGFloat = 2
+  
+   /// Set spacing between cells
+  public var cellSpacing: CGFloat = 2
   
   //Setup collectionview and flow layout
-  
   lazy var collectionView: UICollectionView = {
     let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -134,8 +141,8 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
     
     cell.backgroundColor = colors[indexPath.item]
     if indexPath == selectedIndex {
-      cell.layer.borderWidth = 2
-      cell.layer.borderColor = UIColor.blackColor().CGColor
+      cell.layer.borderWidth = selectedBorderWidth
+      cell.layer.borderColor = selectionColor.CGColor
     }else{
       cell.layer.borderWidth = 0
       cell.layer.borderColor = UIColor.clearColor().CGColor
@@ -156,6 +163,11 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
     }
     
     return CGSize(width: self.bounds.height, height: self.bounds.height - 1)
+  }
+  
+
+  public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    return cellSpacing
   }
   
   
