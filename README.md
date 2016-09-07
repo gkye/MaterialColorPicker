@@ -19,6 +19,10 @@ func didSelectColorAtIndex(view: UIView, index: Int, color: UIColor)
 ```
 Returns the index and color of the selected item.
 
+```swift
+ func sizeForCellAtIndex(MaterialColorPickerView: MaterialColorPicker, index: Int)->CGSize
+```
+Set size of cell at a spefic index
 #### DataSource
 
 ```swift
@@ -31,6 +35,10 @@ Set colors for MaterialColorPicker (Default colors will be used if no `dataSourc
 ```swift
 public var shuffleColors: Bool = false //Shuffles colors within ColorPicker
 ```
+```swift
+public func selectCellAtIndex(index: Int)
+```
+Programtically select a cell at an index
 
 ## Installation
 
@@ -49,12 +57,12 @@ George Kye
 
 MaterialColorPicker is available under the MIT license. See the LICENSE file for more info.
 
-TODO
-- [ ] Add manual selection
-- [ ] Fix `itemSize`. (Some cells not circular when size is not set within `viewDidLoad`)
-
 # Change Log
 
 <a href="https://github.com/gkye/MaterialColorPicker/releases/tag/0.1.4"> 0.1.5 </a> 
 - Added `itemSize` public property to allow configuration of color picker cell.
+
+<a href="https://github.com/gkye/MaterialColorPicker/releases/tag/0.1.6">0.1.6 </a>
+
+-  Added `selectCellAtIndex` function and `sizeForCellAtIndex` delegate
 
