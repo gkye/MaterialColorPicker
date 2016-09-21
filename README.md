@@ -7,9 +7,14 @@
 
 ![Demo Gif](https://rawgit.com/gkye/MaterialColorPicker/master/demo.gif)
 
-## Example
+## Installation
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+MaterialColorPicker is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod "MaterialColorPicker"
+```
 
 # Usage
 
@@ -39,15 +44,6 @@ public var shuffleColors: Bool = false //Shuffles colors within ColorPicker
 public func selectCellAtIndex(index: Int)
 ```
 Programtically select a cell at an index
-
-## Installation
-
-MaterialColorPicker is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod "MaterialColorPicker"
-```
 
 ## Author
 
