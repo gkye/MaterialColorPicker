@@ -54,15 +54,21 @@ George Kye
 MaterialColorPicker is available under the MIT license. See the LICENSE file for more info.
 
 # Change Log
+<a href="https://github.com/gkye/MaterialColorPicker/releases/tag/0.2.0">0.2.0 </a>
+- Updated project to support swift3
+- Updated demo project to reflect changes
 
-<a href="https://github.com/gkye/MaterialColorPicker/releases/tag/0.1.4"> 0.1.5 </a> 
-- Added `itemSize` public property to allow configuration of color picker cell.
-
-<a href="https://github.com/gkye/MaterialColorPicker/releases/tag/0.1.6">0.1.6 </a>
--  Added `selectCellAtIndex` function and `sizeForCellAtIndex` delegate
-  
 <a href="https://github.com/gkye/MaterialColorPicker/releases/tag/0.1.8">0.1.8 </a>
 * Added public selectionColor property. 
 * Added selectedBorderWidth property. 
 * Added cellSpacing property. 
+
+
+<a href="https://github.com/gkye/MaterialColorPicker/releases/tag/0.1.6">0.1.6 </a>
+-  Added `selectCellAtIndex` function and `sizeForCellAtIndex` delegate
+  
+<a href="https://github.com/gkye/MaterialColorPicker/releases/tag/0.1.4"> 0.1.5 </a> 
+- Added `itemSize` public property to allow configuration of color picker cell.
+
+
 
