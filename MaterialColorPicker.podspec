@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MaterialColorPicker'
-  s.version          = '0.1.8'
+  s.version          = '0.2.0'
   s.summary          = 'Drop in customizable color picker with material color support.'
 
 

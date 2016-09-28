@@ -19,18 +19,18 @@ class ViewController: UIViewController, MaterialColorPickerDelegate {
     self.view.addSubview(pickerView)
     pickerView.delegate = self
     pickerView.shuffleColors = true
-    pickerView.selectionColor = UIColor.cyanColor()
+    pickerView.selectionColor = UIColor.cyan
     pickerView.selectedBorderWidth = 5
     pickerView.cellSpacing = 10
     
   }
   
-  func didSelectColorAtIndex(MaterialColorPickerView: MaterialColorPicker, index: Int, color: UIColor) {
+  func didSelectColorAtIndex(_ MaterialColorPickerView: MaterialColorPicker, index: Int, color: UIColor) {
     print("Index is ", index)
     self.view.backgroundColor = color
   }
   
-  func sizeForCellAtIndex(MaterialColorPickerView: MaterialColorPicker, index: Int) -> CGSize {
+  func sizeForCellAtIndex(_ MaterialColorPickerView: MaterialColorPicker, index: Int) -> CGSize {
     if index == 3{
       return CGSize(width: 50, height: 50)
     }else{
@@ -39,7 +39,7 @@ class ViewController: UIViewController, MaterialColorPickerDelegate {
   }
   
   
-  @IBAction func selectIndex(sender: UIButton){
+  @IBAction func selectIndex(_ sender: UIButton){
     pickerView.selectCellAtIndex(30)
   }
   
