@@ -15,8 +15,10 @@ private class MaterialColorPickerCell: UICollectionViewCell{
     self.layer.cornerRadius = self.bounds.width / 2
   }
   
+  //MARK: - Lifecycle
+  
   init() {
-    super.init(frame: CGRectZero)
+    super.init(frame: CGRect.zero)
     setup()
   }
   
@@ -46,7 +48,7 @@ private class MaterialColorPickerCell: UICollectionViewCell{
    - parameter index: index of selected item
    - parameter color: background color of selected item
    */
-  func didSelectColorAtIndex(MaterialColorPickerView: MaterialColorPicker, index: Int, color: UIColor)
+  func didSelectColorAtIndex(_ materialColorPickerView: MaterialColorPicker, index: Int, color: UIColor)
   
   /**
    Return a size for the current cell (overrides default size)
@@ -54,18 +56,18 @@ private class MaterialColorPickerCell: UICollectionViewCell{
    - parameter index:                   index of cell
    - returns: CGSize
    */
-  optional func sizeForCellAtIndex(MaterialColorPickerView: MaterialColorPicker, index: Int)->CGSize
+  @objc optional func sizeForCellAtIndex(_ materialColorPickerView: MaterialColorPicker, index: Int)->CGSize
 }
 
-public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+open class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
   
-  private var selectedIndex: NSIndexPath?
+  fileprivate var selectedIndex: IndexPath?
   lazy var colors: [UIColor] = {
     let colors = GMPalette.allColors()
     return colors
   }()
   
-  public var dataSource: MaterialColorPickerDataSource?{
+  open var dataSource: MaterialColorPickerDataSource?{
     didSet{
       if let dsColors = dataSource?.colors(){
         self.colors = dsColors
@@ -73,23 +75,23 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
     }
   }
   
-  public var delegate: MaterialColorPickerDelegate?
+  open var delegate: MaterialColorPickerDelegate?
   
     /// Shuffles colors within ColorPicker
-  public var shuffleColors: Bool = false{
+  open var shuffleColors: Bool = false{
     didSet{
-      if shuffleColors{ colors.shuffleInPlace() }
+      if shuffleColors{ colors.shuffle() }
     }
   }
   
     /// Color for border of selected cell
-  public var selectionColor: UIColor = UIColor.blackColor()
+  open var selectionColor: UIColor = UIColor.black
   
     /// Border width for selected Cell
-  public var selectedBorderWidth: CGFloat = 2
+  open var selectedBorderWidth: CGFloat = 2
   
    /// Set spacing between cells
-  public var cellSpacing: CGFloat = 2
+  open var cellSpacing: CGFloat = 2
   
   //Setup collectionview and flow layout
   lazy var collectionView: UICollectionView = {
@@ -98,67 +100,67 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
     layout.itemSize = CGSize(width: self.bounds.height, height: self.bounds.height)
     layout.minimumInteritemSpacing = 1
     layout.minimumLineSpacing = 1
-    layout.scrollDirection = .Horizontal
+    layout.scrollDirection = .horizontal
     let collectionView = UICollectionView(frame: self.frame, collectionViewLayout: layout)
     collectionView.dataSource = self
     collectionView.delegate = self
-    collectionView.registerClass(MaterialColorPickerCell.self, forCellWithReuseIdentifier: "Cell")
-    collectionView.backgroundColor = UIColor.clearColor()
+    collectionView.register(MaterialColorPickerCell.self, forCellWithReuseIdentifier: "Cell")
+    collectionView.backgroundColor = UIColor.clear
     collectionView.showsVerticalScrollIndicator = false
     collectionView.showsHorizontalScrollIndicator = false
     return collectionView
   }()
   
-  public override func layoutSubviews() {
+  open override func layoutSubviews() {
     super.layoutSubviews()
     initialize()
     addContrains(self, subView: collectionView)
   }
   
-  private func initialize() {
+  fileprivate func initialize() {
     collectionView.removeFromSuperview()
     self.addSubview(self.collectionView)
   }
   
   //Select index programtically
-    public func selectCellAtIndex(index: Int){
-      let indexPath = NSIndexPath(forRow: index, inSection: 0)
+    open func selectCellAtIndex(_ index: Int){
+      let indexPath = IndexPath(row: index, section: 0)
       selectedIndex = indexPath
-      collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .CenteredHorizontally)
-      self.delegate?.didSelectColorAtIndex(self, index: self.selectedIndex!.item, color: colors[index])
+      collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+      self.delegate?.didSelectColorAtIndex(self, index: (self.selectedIndex! as NSIndexPath).item, color: colors[index])
       animateCell(manualSelection: true)
     }
   
   //MARK: CollectionView DataSouce
-  public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return colors.count
   }
   
-  public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! MaterialColorPickerCell
+  open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! MaterialColorPickerCell
     cell.layer.masksToBounds = true
     cell.clipsToBounds = true
     
-    cell.backgroundColor = colors[indexPath.item]
+    cell.backgroundColor = colors[(indexPath as NSIndexPath).item]
     if indexPath == selectedIndex {
       cell.layer.borderWidth = selectedBorderWidth
-      cell.layer.borderColor = selectionColor.CGColor
+      cell.layer.borderColor = selectionColor.cgColor
     }else{
       cell.layer.borderWidth = 0
-      cell.layer.borderColor = UIColor.clearColor().CGColor
+      cell.layer.borderColor = UIColor.clear.cgColor
     }
     return cell
   }
   
   //MARK: CollectionView delegate
   
-  public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+  open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     selectedIndex = indexPath
     animateCell()
   }
   
-  public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-    if let size = delegate?.sizeForCellAtIndex?(self, index: indexPath.row){
+  open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    if let size = delegate?.sizeForCellAtIndex?(self, index: (indexPath as NSIndexPath).row){
       return size
     }
     
@@ -166,7 +168,7 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
   }
   
 
-  public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+  open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return cellSpacing
   }
   
@@ -175,18 +177,18 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
   /**
    Animate cell on selection
    */
-  private func animateCell(manualSelection manualSelection: Bool = false){
-    if let cell = collectionView.cellForItemAtIndexPath(selectedIndex!){
-      UIView.animateWithDuration(0.3 / 1.5, animations: {() -> Void in
-        cell.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3)
+  fileprivate func animateCell(manualSelection: Bool = false){
+    if let cell = collectionView.cellForItem(at: selectedIndex!){
+      UIView.animate(withDuration: 0.3 / 1.5, animations: {() -> Void in
+        cell.transform = CGAffineTransform.identity.scaledBy(x: 1.3, y: 1.3)
         }, completion: {(finished: Bool) -> Void in
-          UIView.animateWithDuration(0.3 / 2, animations: {() -> Void in
-            cell.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.9, 0.9)
+          UIView.animate(withDuration: 0.3 / 2, animations: {() -> Void in
+            cell.transform = CGAffineTransform.identity.scaledBy(x: 0.9, y: 0.9)
             }, completion: {(finished: Bool) -> Void in
-              UIView.animateWithDuration(0.3 / 2, animations: {() -> Void in
-                cell.transform = CGAffineTransformIdentity
+              UIView.animate(withDuration: 0.3 / 2, animations: {() -> Void in
+                cell.transform = CGAffineTransform.identity
                 if !manualSelection{
-                  self.delegate?.didSelectColorAtIndex(self, index: self.selectedIndex!.item, color: cell.backgroundColor!)
+                  self.delegate?.didSelectColorAtIndex(self, index: (self.selectedIndex! as NSIndexPath).item, color: cell.backgroundColor!)
                 }
                 self.collectionView.reloadData()
               })
@@ -195,27 +197,28 @@ public class MaterialColorPicker: UIView, UICollectionViewDataSource, UICollecti
     }
   }
   
-  private func addContrains(superView: UIView, subView: UIView){
+  fileprivate func addContrains(_ superView: UIView, subView: UIView){
     subView.translatesAutoresizingMaskIntoConstraints = false
     let views = ["myView" : subView]
-    superView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[myView]|", options:[] , metrics: nil, views: views))
-    superView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[myView]|", options:[] , metrics: nil, views: views))
+    superView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[myView]|", options:[] , metrics: nil, views: views))
+    superView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[myView]|", options:[] , metrics: nil, views: views))
   }
 }
 
 
 //Shuffle extension
 
-extension MutableCollectionType where Index == Int {
+extension MutableCollection where Index == Int {
   /// Shuffle the elements of `self` in-place.
-  mutating func shuffleInPlace() {
+  mutating func shuffle() {
     // empty and single-element collections don't shuffle
     if count < 2 { return }
     
-    for i in 0..<count - 1 {
-      let j = Int(arc4random_uniform(UInt32(count - i))) + i
-      guard i != j else { continue }
-      swap(&self[i], &self[j])
+    for i in startIndex ..< endIndex - 1 {
+      let j = Int(arc4random_uniform(UInt32(endIndex - i))) + i
+      if i != j {
+        swap(&self[i], &self[j])
+      }
     }
   }
 }
